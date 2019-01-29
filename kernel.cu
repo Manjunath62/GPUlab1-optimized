@@ -37,9 +37,12 @@ __global__ void reduction(float *out, float *in, unsigned size)
     {
     __syncthreads();
     if(t<stride)
+    //__syncthreads();
     {
     partialsum[t]+=partialsum[t+stride]; 
     }
+    __syncthreads();
     }
+    //if(threadIdx.x ==0)
     out[blockIdx.x]= partialsum[0];
 }
